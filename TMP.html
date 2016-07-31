@@ -1,0 +1,60 @@
+<script>
+    window.onload = function() {
+        var Atb = document.querySelectorAll(".tubiao");
+        var Back = document.querySelector(".back");
+        var Back2 = document.querySelector(".back2");
+        var A_dd = document.querySelectorAll("dd");
+        var Aimg = ["img/bg_shoulei.jpg", "img/bg_xnet.jpg", "img/bg_member.jpg", "img/bg_xav.jpg"];
+        var Abp = ["0px 45px","240px 45px","170px 45px","50px 45px"];
+        var Abp0 = ["0px 0px","100px 0px","170px 0px","50px 0px"];
+        var n = 0;
+        var a = 0;
+
+
+
+
+        var timer = setInterval(function () {
+            Back = document.querySelector(".back");
+            Back2 = document.querySelector(".back2");
+            a=n;
+            n++;
+            n%=4;
+            Atb[a].style.backgroundPosition = Abp0[a];
+            var Delay = setTimeout(function(){A_dd[a].style.backgroundColor="lightgrey";A_dd[n].style.backgroundColor="white";},250);
+            Atb[n].style.backgroundPosition = Abp[n];
+            mTween(Back,{opacity:0},2000,"linear");
+            Back2.style.background = "url(\"" + Aimg[n] + "\")";
+            mTween(Back2,{opacity:1},2000,"linear");
+            Back2.className="back";
+            Back.className="back2";
+
+
+            //mTween(Back,{opacity:0.8},2000,"linear");
+            //直接这样改 太粗暴 还是用淡入淡出吧 就是
+        }, 6000);
+
+
+//            function Fadeout(obj) {
+//                console.log(obj.style.opacity);
+//                obj.timer = setInterval(function () {
+//                    obj.style.opacity -= 0.05;
+//                    if (obj.style.opacity <= 0) {
+//                        clearInterval(obj.timer);
+//                        obj.style.opacity = 0;
+//                        obj.style.background = "url(\"" + Aimg[n] + "\")";
+//                    }
+//                }, 90);
+//            }
+
+//            function FadeIn(obj) {
+//                console.log(obj.style.opacity);
+//                obj.timer2 = setInterval(function () {
+//                    obj.style.opacity += 0.2;
+//                    if (obj.style.opacity >= 1) {
+//                        obj.style.opacity = 1;
+//                        clearInterval(obj.timer2)
+//                    }
+//                }, 100);
+//            }
+    }
+</script>

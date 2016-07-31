@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        *{margin: 0; padding: 0;}
+        li { list-style:none; float: none;}
+        body {position: absolute;width: 100%;height:100%;overflow: hidden;}
+        .back {position:absolute;width: 100%;height:100%; background:url("img/bg_shoulei.jpg"); opacity: 1;z-index: -100;}
+        .back2 {position:absolute;width: 100%;height:100%; background:whitesmoke; opacity: 0;z-index: -999;}
+        #Eb { position: absolute;width: 150px;height:100%;background:rgba(51,51,51,0.65); right:-155px;}
+        #Eb ul { margin-top: 120px;font-size: 18px;}
+        #Eb ul li { text-align: center;margin-top:30px;color:whitesmoke; opacity: 0.7; cursor: pointer;}
+        #Eb ul li:hover { text-align: center;margin-top:30px;color:whitesmoke; opacity: 1; cursor: pointer;}
+        #Eb img { position:absolute;left:16px;top:124px;opacity: 0}
+        #Ob { float:left;width: 100%;height:100%; opacity: 1; z-index: 9999;}
+
+        #tubiaokuang { position:absolute; bottom:80px;left:50%;margin-left:-200px;width: 400px;height: 100px;}
+        #tubiao { width:280px; bottom:20px; float: left; margin-top:50px;margin-left:60px; }
+        #tubiao dd { height: 2px;  width:24%;background-color:lightgrey; float:left; margin-right: 2.8px;;opacity: 1;}
+        #tubiao span { width: 60px; height:65px; float: left; margin-top: -75px;margin-left: 1px; }
+        #tubiao #tubiao1 { background:url("img/ic_spr.png");background-position:0px 0px;}
+        #tubiao #tubiao2 { background:url("img/ic_spr.png");background-position:100px 0px;}
+        #tubiao #tubiao3 { background:url("img/ic_spr.png");background-position:490px 0px;}
+        #tubiao #tubiao4 { background:url("img/ic_spr.png");background-position:300px 0px;}
+        .back img {position:absolute;left: 50%;margin-left: -137.5px; top:100px; opacity:0;}
+        #gengduo { float: right;margin-right: 50px;margin-top:50px;width:34px;  height:25px;background: url("img/ico_01.png") no-repeat;background-position:8px 8px;padding: 5px;}
+    </style>
+    <script src="mTween.js" type="text/javascript"></script>
+    <script>
+        window.onload = function() {
+            var Ob = document.querySelector("#Ob");
+            var Atb = document.querySelectorAll(".tubiao");
+            var Back = document.querySelector(".back");
+            var Back2 = document.querySelector(".back2");
+            var A_dd = document.querySelectorAll("dd");
+            var Oimg = document.querySelector("img");
+            var Ogengduo = document.querySelector("#gengduo");
+            var OEb = document.querySelector("#Eb");
+            var Ali = document.querySelectorAll("li");
+            var Oyuan = OEb.getElementsByTagName("img")[0];
+            var Aimg = ["img/bg_shoulei.jpg", "img/bg_xnet.jpg", "img/bg_member.jpg", "img/bg_xav.jpg"];
+            var Abp = ["0px 68px","100px 68px","490px 68px","300px 68px"];
+            var Abp0 = ["0px 0px","100px 0px","490px 0px","300px 0px"];
+            var Ayw = [123,179, 235, 291, 347]
+            var Atext =[{"url":"img/txt_1.png","style":"position:absolute;left: 50%;margin-left: -137.5px; top:100px; opacity:0;",},
+                        {"url":"img/txt_2.png","style":"position:absolute;left: 50%; top:100px; margin-left:10px;opacity:0;"},
+                        {"url":"img/txt_3.png","style":"position:absolute;left: 50%;margin-left: -142.5px; top:100px; opacity:0;"},
+                        {"url":"img/txt_4.png","style":"position:absolute;left: 50%;margin-left: -161.5px; top:100px; opacity:0;"}]
+            var n = 0;
+            var a = 0;
+
+            Ogengduo.onmouseover = function(){
+                mTween(OEb,{right:0},100,"linear");
+                console.log(this.parentNode);
+                this.style.border = "2px solid white";
+            };
+            OEb.onmouseover = function(){
+                mTween(OEb,{right:0},100,"linear");
+                console.log(this.parentNode);
+                Ogengduo.style.border = "2px solid white";
+            };
+            OEb.onmouseout = function(){
+                mTween(OEb,{right:-155},100,"linear");
+                Ogengduo.style.border = "none";
+               //Oyuan.style.top= "124px";
+            };
+
+            for (var i=0;i<=Ali.length;i++){
+                (function(a){
+                  Ali[a].onmouseover= function(){mTween(Oyuan,{top:Ayw[a],opacity:1},100,"linear");}
+                })(i);
+            }
+
+            var timerb = setTimeout(function(){
+                mTween(Oimg,{top:120,opacity:1},1000,"linear");
+                mTween(Back,{opacity:0},5000,"linear")
+            },1000);
+            
+            var timer = setInterval(function () {
+                a=n;
+                n++;
+                n%=4;
+                Back = document.querySelector(".back");
+                Back2 = document.querySelector(".back2");
+                var Oshan = document.querySelector(".shanchu");
+                var tem = document.createElement("img");
+                tem.src=Atext[n].url;
+                tem.className="shanchu";
+                tem.style = Atext[n].style;
+                Back2.appendChild(tem);//添加这个子元素
+                Atb[a].style.backgroundPosition = Abp0[a];  //改变下面图标的背景
+                Atb[n].style.backgroundPosition = Abp[n];
+                Back2.style.background = "url(\"" + Aimg[n] + "\")";
+                mTween(Back,{opacity:0},2000,"linear");
+                mTween(Back2,{opacity:1},2000,"linear");
+                Back.removeChild(Oshan);
+                var Delay = setTimeout(function(){
+                    A_dd[a].style.backgroundColor="lightgrey";
+                    A_dd[n].style.backgroundColor="white"; //权宜之计  我觉得还是做出滑动的感觉最好
+                    mTween(tem,{top:120,opacity:1},1000,"linear");
+                },250);
+                Back2.className="back";
+                Back.className="back2";
+                //mTween(Back,{opacity:0.8},2000,"linear");
+                //直接这样改 太粗暴 还是用淡入淡出吧 就是
+            }, 5000);
+
+
+
+        }
+
+        /*关于滑动显示 的到现在的抢位置  然后 滑到哪里 就移到那里*/
+    </script>
+
+
+</head>
+<body>
+<div id="Ob">
+    <div class="back"><img class="shanchu" src="img/txt_1.png"></div>
+    <div class="back2"></div>
+    <div><span id="gengduo"></span></div>
+    <div id="Eb">
+        <img class="yuan" src="yuandian.gif"/>
+        <ul>
+            <li>星域CDN</li>
+            <li>人力资源</li>
+            <li>投资关系</li>
+            <li>关于迅雷</li>
+            <li>联系我们</li>
+        </ul>
+
+    </div>
+    <div id="tubiaokuang">
+        <dl id="tubiao">
+            <dd><span class="tubiao" id="tubiao1"></span></dd>
+            <dd><span class="tubiao" id="tubiao2"></span></dd>
+            <dd><span class="tubiao" id="tubiao3"></span></dd>
+            <dd><span class="tubiao" id="tubiao4"></span></dd>
+        </dl>
+
+    </div>
+</div>
+</body>
+</html>
